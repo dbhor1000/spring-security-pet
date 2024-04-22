@@ -5,9 +5,6 @@ import jakarta.persistence.Table
 import jakarta.persistence.Id
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
-import lombok.Data
-import lombok.NoArgsConstructor
-import org.intellij.lang.annotations.Identifier
 
 @Entity
 @Table(name = "keys")
