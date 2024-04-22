@@ -1,6 +1,9 @@
 package org.example.repository
 
 import org.example.entity.LockEntity
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Repository
 
-interface LockRepository : JpaRepository<LockEntity, Long>
+@Repository
+interface LockRepository : CrudRepository<LockEntity, Long>

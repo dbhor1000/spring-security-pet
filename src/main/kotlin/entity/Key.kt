@@ -11,11 +11,10 @@ import org.intellij.lang.annotations.Identifier
 
 @Entity
 @Table(name = "keys")
-@NoArgsConstructor
 class KeyEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = 0L,
+    val id: Long? = null,
     val keyType: String? = null,
     val keyColor: String? = null
 )

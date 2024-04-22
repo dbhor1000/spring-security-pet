@@ -4,8 +4,8 @@ import org.example.entity.KeyEntity
 
 data class KeyDto (
     val id: Long? = null,
-    val keyType: String?,
-    val keyColor: String?
+    val keyType: String? = "",
+    val keyColor: String? = ""
 ) {
     companion object {
         fun KeyEntity.toDto() = KeyDto(

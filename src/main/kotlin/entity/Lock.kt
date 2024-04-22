@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor
 
 @Entity
 @Table(name = "locks")
-@NoArgsConstructor
 class LockEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = 0L,
+    val id: Long? = null,
     val lockType: String? = null,
     val lockColor: String? = null
 )
