@@ -17,8 +17,8 @@ class UserService(
         val encodedPassword = passwordEncoder.encode(userDto.password)
         val userDtoEncodedPassword = userDto.copy(password = encodedPassword)
 
-        userRepository.save(userDtoEncodedPassword.toEntity())
-        return userDto.toEntity()
+        val savedEntity = userRepository.save(userDtoEncodedPassword.toEntity())
+        return userDto.copy(id=savedEntity.id).toEntity()
     }
 
 }
