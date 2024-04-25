@@ -10,15 +10,17 @@ import java.util.Date
 
 @Service
 class TokenService(
-    jwtProperties: JwtProperties
+    jwtProperties: JwtProperties,
 ) {
-    private val secretKey = Keys.hmacShaKeyFor(
-        jwtProperties.key.toByteArray()
-    )
+    private val secretKey =
+        Keys.hmacShaKeyFor(
+            jwtProperties.key.toByteArray(),
+        )
+
     fun generate(
         userDetails: UserDetails,
         expirationDate: Date,
-        additionalClaims: Map<String, Any> = emptyMap()
+        additionalClaims: Map<String, Any> = emptyMap(),
     ): String =
         Jwts.builder()
             .claims()
@@ -29,21 +31,29 @@ class TokenService(
             .and()
             .signWith(secretKey)
             .compact()
-    fun isValid(token: String, userDetails: UserDetails): Boolean {
+
+    fun isValid(
+        token: String,
+        userDetails: UserDetails,
+    ): Boolean {
         val email = extractUsername(token)
         return userDetails.username == email && !isExpired(token)
     }
+
     fun extractUsername(token: String): String? =
         getAllClaims(token)
             .subject
+
     fun isExpired(token: String): Boolean =
         getAllClaims(token)
             .expiration
             .before(Date(System.currentTimeMillis()))
+
     private fun getAllClaims(token: String): Claims {
-        val parser = Jwts.parser()
-            .verifyWith(secretKey)
-            .build()
+        val parser =
+            Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
         return parser
             .parseSignedClaims(token)
             .payload

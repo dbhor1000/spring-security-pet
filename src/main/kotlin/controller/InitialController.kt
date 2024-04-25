@@ -17,24 +17,29 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @Controller
 @RequestMapping("/initial")
-class InitialController(private val lockService: LockService,
-    private val keyService: KeyService) {
-
+class InitialController(
+    private val lockService: LockService,
+    private val keyService: KeyService,
+) {
     @PostMapping(
         "/lock",
         consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE]
+        produces = [MediaType.APPLICATION_JSON_VALUE],
     )
-    fun addLock(@RequestBody request: LockDto): ResponseEntity<*> {
+    fun addLock(
+        @RequestBody request: LockDto,
+    ): ResponseEntity<*> {
         return ResponseEntity.ok(lockService.create(request).toDto())
     }
 
     @PostMapping(
         "/key",
         consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE]
+        produces = [MediaType.APPLICATION_JSON_VALUE],
     )
-    fun addKey(@RequestBody request: KeyDto): ResponseEntity<*> {
+    fun addKey(
+        @RequestBody request: KeyDto,
+    ): ResponseEntity<*> {
         return ResponseEntity.ok(keyService.create(request).toDto())
     }
 }

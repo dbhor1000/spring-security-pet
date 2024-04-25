@@ -16,14 +16,14 @@ class AuthenticationService(
     private val userDetailsService: CustomUserDetailsService,
     private val tokenService: TokenService,
     private val jwtProperties: JwtProperties,
-    private val refreshTokenRepository: RefreshTokenRepository
+    private val refreshTokenRepository: RefreshTokenRepository,
 ) {
     fun authentication(authenticationRequest: AuthenticationRequest): AuthenticationResponse {
         authManager.authenticate(
             UsernamePasswordAuthenticationToken(
                 authenticationRequest.username,
-                authenticationRequest.password
-            )
+                authenticationRequest.password,
+            ),
         )
         val user = userDetailsService.loadUserByUsername(authenticationRequest.username!!)
         val accessToken = createAccessToken(user)
@@ -33,7 +33,7 @@ class AuthenticationService(
 
         return AuthenticationResponse(
             accessToken = accessToken,
-            refreshToken = refreshToken
+            refreshToken = refreshToken,
         )
     }
 
@@ -42,26 +42,27 @@ class AuthenticationService(
         return extractedUsername?.let { username ->
             val currentUserDetails = userDetailsService.loadUserByUsername(username)
             val refreshTokenUserDetails = refreshTokenRepository.findUserDetailsByToken(refreshToken)
-            if (!tokenService.isExpired(refreshToken) && refreshTokenUserDetails?.username == currentUserDetails.username)
+            if (!tokenService.isExpired(refreshToken) && refreshTokenUserDetails?.username == currentUserDetails.username) {
                 createAccessToken(currentUserDetails)
-            else
+            } else {
                 null
+            }
         }
     }
 
-    private fun createAccessToken(user: UserDetails) = tokenService.generate(
-        userDetails = user,
-        expirationDate = getAccessTokenExpiration()
-    )
+    private fun createAccessToken(user: UserDetails) =
+        tokenService.generate(
+            userDetails = user,
+            expirationDate = getAccessTokenExpiration(),
+        )
 
-    private fun createRefreshToken(user: UserDetails) = tokenService.generate(
-        userDetails = user,
-        expirationDate = getRefreshTokenExpiration()
-    )
+    private fun createRefreshToken(user: UserDetails) =
+        tokenService.generate(
+            userDetails = user,
+            expirationDate = getRefreshTokenExpiration(),
+        )
 
-    private fun getAccessTokenExpiration(): Date =
-        Date(System.currentTimeMillis() + jwtProperties.accessTokenExpiration)
+    private fun getAccessTokenExpiration(): Date = Date(System.currentTimeMillis() + jwtProperties.accessTokenExpiration)
 
-    private fun getRefreshTokenExpiration(): Date =
-        Date(System.currentTimeMillis() + jwtProperties.refreshTokenExpiration)
+    private fun getRefreshTokenExpiration(): Date = Date(System.currentTimeMillis() + jwtProperties.refreshTokenExpiration)
 }

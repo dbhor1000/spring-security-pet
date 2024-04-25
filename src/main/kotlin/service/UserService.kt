@@ -10,15 +10,13 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(
     private val userRepository: UserRepository,
-    private val passwordEncoder: PasswordEncoder
+    private val passwordEncoder: PasswordEncoder,
 ) {
     fun create(userDto: UserDto): UserEntity {
-
         val encodedPassword = passwordEncoder.encode(userDto.password)
         val userDtoEncodedPassword = userDto.copy(password = encodedPassword)
 
         val savedEntity = userRepository.save(userDtoEncodedPassword.toEntity())
-        return userDto.copy(id=savedEntity.id).toEntity()
+        return userDto.copy(id = savedEntity.id).toEntity()
     }
-
 }

@@ -14,15 +14,17 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @Controller
 @RequestMapping("/user")
-class UserController(private val userService: UserService
+class UserController(
+    private val userService: UserService,
 ) {
-
     @PostMapping(
         "/register",
         consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE]
+        produces = [MediaType.APPLICATION_JSON_VALUE],
     )
-    fun registerUser(@RequestBody request: UserDto): ResponseEntity<*> {
+    fun registerUser(
+        @RequestBody request: UserDto,
+    ): ResponseEntity<*> {
         return ResponseEntity.ok(userService.create(request).toDto())
     }
 }

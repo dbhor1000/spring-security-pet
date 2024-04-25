@@ -8,18 +8,17 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "users")
-class UserEntity (
-
+class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     val username: String? = null,
     val password: String? = null,
     val fullName: String? = null,
-    val role: Role? = null
-
+    val role: Role? = null,
 )
 
 enum class Role {
-    ADMIN, USER
+    ADMIN,
+    USER,
 }

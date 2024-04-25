@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 open class LockService(
-    private val lockRepository: LockRepository
+    private val lockRepository: LockRepository,
 ) {
-    fun create(lockDto: LockDto): LockEntity =
-        lockRepository.save(lockDto.toEntity())
+    fun create(lockDto: LockDto): LockEntity = lockRepository.save(lockDto.toEntity())
 }
