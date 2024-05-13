@@ -195,6 +195,21 @@
             <version>3.2.4</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin-wrappers/kotlin-react -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin-wrappers</groupId>
+            <artifactId>kotlin-react</artifactId>
+            <version>18.3.1-pre.736</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.npm/react-router-dom -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>react-router-dom</artifactId>
+            <version>6.13.0</version>
+        </dependency>
+
+
 
     </dependencies>
 
